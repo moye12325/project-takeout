@@ -19,19 +19,19 @@ import java.io.Serializable;
 public class EmployeeLoginVO implements Serializable {
 
 //    @ApiModelProperty("主键值")
-    @Schema(name = "主键值")
+    @Schema(name = "id",description = "主键值")
     private Long id;
 
 //    @ApiModelProperty("用户名")
-    @Schema(name = "用户名")
+    @Schema(name = "userName",description = "用户名")
     private String userName;
 
 //    @ApiModelProperty("姓名")
-    @Schema(name = "姓名")
+    @Schema(name = "name",description = "姓名")
     private String name;
 
 //    @ApiModelProperty("jwt令牌")
-    @Schema(name = "jwt令牌")
+    @Schema(name = "token",description = "jwt令牌")
     private String token;
 
 }

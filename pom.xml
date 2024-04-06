@@ -33,6 +33,7 @@
         <jaxb-api>2.3.1</jaxb-api>
         <poi>3.16</poi>
         <jakarta>6.0.0</jakarta>
+        <mybatis-plus>3.5.5</mybatis-plus>
     </properties>
 
     <modules>
@@ -146,6 +147,13 @@
                 <artifactId>wechatpay-apache-httpclient</artifactId>
                 <version>0.4.8</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

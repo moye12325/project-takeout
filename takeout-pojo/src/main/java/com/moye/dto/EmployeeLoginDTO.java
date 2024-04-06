@@ -14,11 +14,11 @@ import java.io.Serializable;
 public class EmployeeLoginDTO implements Serializable {
 
     //    @ApiModelProperty("用户名")
-    @Schema(name = "用户名")
+    @Schema(description = "用户名",name = "username")
     private String username;
 
     //    @ApiModelProperty("密码")
-    @Schema(name = "密码")
+    @Schema(name = "password",description = "密码")
     private String password;
 
 }

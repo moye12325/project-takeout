@@ -1,7 +1,10 @@
 package com.moye.service.impl;
 
 import com.moye.constant.MessageConstant;
+import com.moye.constant.PasswordConstant;
 import com.moye.constant.StatusConstant;
+import com.moye.context.BaseContext;
+import com.moye.dto.EmployeeDTO;
 import com.moye.dto.EmployeeLoginDTO;
 import com.moye.entity.Employee;
 import com.moye.exception.AccountLockedException;
@@ -9,9 +12,12 @@ import com.moye.exception.AccountNotFoundException;
 import com.moye.exception.PasswordErrorException;
 import com.moye.mapper.EmployeeMapper;
 import com.moye.service.EmployeeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.time.LocalDateTime;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -55,4 +61,32 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    /**
+     * 新增员工
+     *
+     * @param employeeDTO
+     */
+    @Override
+    public void save(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+
+//        employee.setUsername(employeeDTO.getUsername());
+//        employee.setName(employeeDTO.getName());
+//        employee.setPhone(employeeDTO.getPhone());
+//        employee.setSex(employeeDTO.getSex());
+        //使用对象拷贝，减少工作量。前提是属性名一致
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        //设置账号状态等信息
+        employee.setStatus(StatusConstant.ENABLE);
+        employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        //TODO:后期需要改为当前登录人的id
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        employeeMapper.insert(employee);
+    }
 }

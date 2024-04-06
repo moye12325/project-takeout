@@ -1,7 +1,7 @@
 package com.moye.result;
 
 import lombok.Data;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 
 /**
@@ -11,8 +11,13 @@ import java.io.Serializable;
 @Data
 public class Result<T> implements Serializable {
 
+    @Schema(name = "code",description = "编码：1成功，0和其它数字为失败")
     private Integer code; //编码：1成功，0和其它数字为失败
+
+    @Schema(name = "msg",description = "错误信息")
     private String msg; //错误信息
+
+    @Schema(name = "data",description = "数据")
     private T data; //数据
 
     public static <T> Result<T> success() {
