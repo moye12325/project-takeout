@@ -3,8 +3,10 @@ package com.moye.admin;
 import com.moye.constant.JwtClaimsConstant;
 import com.moye.dto.EmployeeDTO;
 import com.moye.dto.EmployeeLoginDTO;
+import com.moye.dto.EmployeePageQueryDTO;
 import com.moye.entity.Employee;
 import com.moye.properties.JwtProperties;
+import com.moye.result.PageResult;
 import com.moye.result.Result;
 import com.moye.service.EmployeeService;
 import com.moye.utils.JwtUtil;
@@ -13,10 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
-@Tag(name = "员工管理",description = "员工管理API")
+@Tag(name = "员工管理", description = "员工管理API")
 public class EmployeeController {
 
     @Autowired
@@ -42,7 +41,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
-    @Operation(summary = "员工登录",description = "员工登录")
+    @Operation(summary = "员工登录", description = "员工登录")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
@@ -72,7 +71,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/logout")
-    @Operation(summary = "员工退出",description = "员工退出")
+    @Operation(summary = "员工退出", description = "员工退出")
     public Result<String> logout() {
         return Result.success();
     }
@@ -85,13 +84,28 @@ public class EmployeeController {
      * @return
      */
     @PostMapping
-    @Operation(summary = "新增员工",description = "新增员工")
-    public Result save(@RequestBody EmployeeDTO employeeDTO){
+    @Operation(summary = "新增员工", description = "新增员工")
+    public Result save(@RequestBody EmployeeDTO employeeDTO) {
         log.info("新增员工：{}", employeeDTO);
 //        System.out.println("当前线程的id：" + Thread.currentThread().getId());
         employeeService.save(employeeDTO);
         return Result.success();
 
+    }
+
+
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+    @GetMapping("page")
+    @Operation(summary = "分页查询员工", description = "分页查询员工")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {
+
+        log.info("分页查询员工：{}", employeePageQueryDTO);
+        PageResult pageResult =employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(pageResult);
     }
 
 }

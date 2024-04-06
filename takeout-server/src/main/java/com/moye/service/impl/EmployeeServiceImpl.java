@@ -1,16 +1,22 @@
 package com.moye.service.impl;
 
+//import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+//import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.moye.constant.MessageConstant;
 import com.moye.constant.PasswordConstant;
 import com.moye.constant.StatusConstant;
 import com.moye.context.BaseContext;
 import com.moye.dto.EmployeeDTO;
 import com.moye.dto.EmployeeLoginDTO;
+import com.moye.dto.EmployeePageQueryDTO;
 import com.moye.entity.Employee;
 import com.moye.exception.AccountLockedException;
 import com.moye.exception.AccountNotFoundException;
 import com.moye.exception.PasswordErrorException;
 import com.moye.mapper.EmployeeMapper;
+import com.moye.result.PageResult;
 import com.moye.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -89,4 +96,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employeeMapper.insert(employee);
     }
+
+    /**
+     * 分页查询
+     *
+     * @param employeePageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+
+        //开始分页查询
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+        long total = page.getTotal();
+        List<Employee> records = page.getResult();
+        return new PageResult(total, records);
+
+    }
+
 }

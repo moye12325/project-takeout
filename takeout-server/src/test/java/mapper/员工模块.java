@@ -1,28 +1,24 @@
 package mapper;
 
-import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.moye.TakeoutApplication;
 import com.moye.constant.PasswordConstant;
 import com.moye.constant.StatusConstant;
-import com.moye.dto.EmployeeDTO;
 import com.moye.entity.Employee;
 import com.moye.mapper.EmployeeMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @SpringBootTest(classes = TakeoutApplication.class)  //springboot下测试环境注解
-public class insertTest {
+public class 员工模块 {
     @Autowired
     private EmployeeMapper employeeMapper;
 
     @Test
-    public void testSelect() {
+    public void TestInsert() {
         System.out.println(("----- selectAll method test ------"));
 
         Employee employee = new Employee();
@@ -43,8 +39,8 @@ public class insertTest {
         employee.setCreateUser(100L);
         employee.setUpdateUser(100L);
 
-        int insert = employeeMapper.insert(employee);
-        System.out.println("insert = " + insert);
+        employeeMapper.insert(employee);
+//        System.out.println("insert = " + insert);
 
     }
 }
