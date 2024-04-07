@@ -1,4 +1,4 @@
-package com.moye.admin;
+package com.moye.controller.admin;
 
 import com.moye.constant.JwtClaimsConstant;
 import com.moye.dto.EmployeeDTO;
