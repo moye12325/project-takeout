@@ -5,6 +5,7 @@ import com.moye.dto.DishPageQueryDTO;
 import com.moye.result.PageResult;
 import com.moye.result.Result;
 import com.moye.service.DishService;
+import com.moye.vo.DishVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ public class DishController {
 
     /**
      * 新增菜品
+     *
      * @param dishDTO
      * @return
      */
@@ -38,16 +40,33 @@ public class DishController {
 
     @GetMapping("/page")
     @Operation(summary = "分页查询菜品", description = "分页查询菜品")
-    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){
+    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO) {
         log.info("分页查询菜品：{}", dishPageQueryDTO);
         return Result.success(dishService.pageQuery(dishPageQueryDTO));
     }
 
     @DeleteMapping
     @Operation(summary = "批量删除菜品", description = "批量删除菜品")
-    public Result delete(@RequestParam List<Long> ids){
+    public Result delete(@RequestParam List<Long> ids) {
         log.info("批量删除菜品：{}", ids);
         dishService.deleteBatch(ids);
         return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "查询菜品", description = "根据id菜品")
+    public Result<DishVO> getById(@PathVariable Long id) {
+        log.info("查询菜品：{}", id);
+        DishVO dishVO  = dishService.getByIdWithFlavor(id);
+        return Result.success(dishVO);
+    }
+
+    @PutMapping
+    @Operation(summary = "修改菜品", description = "修改菜品")
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("修改菜品：{}", dishDTO);
+        dishService.updateWithFlavor(dishDTO);
+        return Result.success();
+
     }
 }
