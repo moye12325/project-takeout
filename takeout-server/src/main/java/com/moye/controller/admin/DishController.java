@@ -67,6 +67,19 @@ public class DishController {
         log.info("修改菜品：{}", dishDTO);
         dishService.updateWithFlavor(dishDTO);
         return Result.success();
+    }
 
+    /**
+     * 启用、禁用分类
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("status/{status}")
+    @Operation(summary = "起售、停售菜品", description = "起售、停售菜品")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("启用禁用分类：{},{}", status, id);
+        dishService.startOrStop(status, id);
+        return Result.success();
     }
 }

@@ -6,6 +6,7 @@ import com.moye.constant.MessageConstant;
 import com.moye.constant.StatusConstant;
 import com.moye.dto.DishDTO;
 import com.moye.dto.DishPageQueryDTO;
+import com.moye.entity.Category;
 import com.moye.entity.Dish;
 import com.moye.entity.DishFlavor;
 import com.moye.exception.DeletionNotAllowedException;
@@ -144,4 +145,14 @@ public class DishServiceImpl implements DishService {
             dishFlavorMapper.batchInsert(flavors);
         }
     }
+
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Dish dish = new Dish();
+        dish.setId(id);
+        dish.setStatus(status);
+        dishMapper.update(dish);
+    }
+
+
 }

@@ -63,7 +63,7 @@ public class CategoryController {
     @PostMapping("status/{status}")
     @Operation(summary = "启用、禁用分类", description = "启用、禁用分类")
     public Result startOrStop(@PathVariable Integer status, Long id) {
-        log.info("启用禁用员工账号：{},{}", status, id);
+        log.info("启用禁用分类：{},{}", status, id);
         categoryService.startOrStop(status, id);
         return Result.success();
     }
