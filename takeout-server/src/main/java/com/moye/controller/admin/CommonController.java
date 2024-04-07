@@ -1,5 +1,6 @@
 package com.moye.controller.admin;
 
+import com.moye.constant.MessageConstant;
 import com.moye.properties.JwtProperties;
 import com.moye.result.Result;
 import com.moye.utils.QiNiuOssUtil;
@@ -44,7 +45,6 @@ public class CommonController {
             log.info("文件上传失败：{}", e.getMessage());
         }
 
-
-        return null;
+        return Result.error(MessageConstant.UPLOAD_FAILED);
     }
 }
