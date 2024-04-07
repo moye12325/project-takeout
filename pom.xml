@@ -33,6 +33,7 @@
         <jaxb-api>2.3.1</jaxb-api>
         <poi>3.16</poi>
         <jakarta>6.0.0</jakarta>
+        <qiniu>7.15.0</qiniu>
 <!--        <mybatis-plus>3.5.5</mybatis-plus>-->
     </properties>
 
@@ -44,6 +45,13 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu}</version>
+            </dependency>
+
             <dependency>
                 <groupId>jakarta.servlet</groupId>
                 <artifactId>jakarta.servlet-api</artifactId>
