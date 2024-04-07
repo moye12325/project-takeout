@@ -1,8 +1,10 @@
 package com.moye.mapper;
 
 import com.github.pagehelper.Page;
+import com.moye.annotation.AutoFill;
 import com.moye.dto.CategoryPageQueryDTO;
 import com.moye.entity.Category;
+import com.moye.enumeration.OperationType;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,8 +20,10 @@ public interface CategoryMapper {
      *
      * @param category
      */
+    @AutoFill(value = OperationType.UPDATE)
     void update(Category category);
 
+    @AutoFill(value = OperationType.INSERT)
     void insert(Category category);
 
     Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
