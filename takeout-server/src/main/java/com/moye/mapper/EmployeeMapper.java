@@ -2,6 +2,7 @@ package com.moye.mapper;
 
 //import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 //import com.github.pagehelper.Page;
+
 import com.github.pagehelper.Page;
 import com.moye.dto.EmployeePageQueryDTO;
 import com.moye.entity.Employee;
@@ -10,7 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface EmployeeMapper  {
+public interface EmployeeMapper {
 
     /**
      * 根据用户名查询员工
@@ -36,11 +37,20 @@ public interface EmployeeMapper  {
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
-//    /**
-//     * 分页查询员工MybatisPlus
-//     *
-//     * @param employeePageQueryDTO
-//     * @return
-//     */
-//    Page<Employee> getPages(Page<Employee> rowPage,@Param("schoolStudent") SchoolStudent schoolStudent);
+    /**
+     * 根据主键动态修改sql
+     *
+     * @param employee
+     */
+    void update(Employee employee);
+
+
+    /**
+     * 根据主键查询员工
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee getById(long id);
 }

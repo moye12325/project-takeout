@@ -13,6 +13,7 @@ import com.moye.utils.JwtUtil;
 import com.moye.vo.EmployeeLoginVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -96,6 +97,7 @@ public class EmployeeController {
 
     /**
      * 分页查询
+     *
      * @param employeePageQueryDTO
      * @return
      */
@@ -104,8 +106,47 @@ public class EmployeeController {
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {
 
         log.info("分页查询员工：{}", employeePageQueryDTO);
-        PageResult pageResult =employeeService.pageQuery(employeePageQueryDTO);
+        PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+
+
+    /**
+     * 修改员工账号状态
+     *
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("status/{status}")
+    @Operation(summary = "启用禁用员工账号", description = "启用禁用员工账号")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("启用禁用员工账号：{},{}", status, id);
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
+
+    /**
+     * 根据id查员工信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "根据id查员工信息", description = "根据id查员工信息")
+    public Result<Employee> getById(@PathVariable long id) {
+        log.info("根据id查员工信息：{}", id);
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+
+    @PutMapping
+    @Operation(summary = "修改员工信息", description = "修改员工信息")
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("修改员工信息：{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
     }
 
 }
