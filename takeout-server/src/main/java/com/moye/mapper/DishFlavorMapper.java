@@ -19,4 +19,6 @@ public interface DishFlavorMapper {
      * @return
      */
     void batchInsert(List<DishFlavor> flavors);
+
+    void deleteByDishId(Long id);
 }

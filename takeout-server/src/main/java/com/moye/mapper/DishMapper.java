@@ -1,8 +1,11 @@
 package com.moye.mapper;
 
+import com.github.pagehelper.Page;
 import com.moye.annotation.AutoFill;
+import com.moye.dto.DishPageQueryDTO;
 import com.moye.entity.Dish;
 import com.moye.enumeration.OperationType;
+import com.moye.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -20,4 +23,11 @@ public interface DishMapper {
 
     @AutoFill(value = OperationType.INSERT)
     void insert(Dish dish);
+
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    @Select("select * from dish where id = #{id}")
+    Dish getById(Long id);
+
+    void deleteById(Long id);
 }
