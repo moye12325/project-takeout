@@ -13,5 +13,11 @@
     <delete id="deleteByDishId">
         delete from dish_flavor where dish_id = #{dishId}
     </delete>
+    <delete id="deleteByDishIds">
+        delete from dish_flavor where dish_id in
+        <foreach collection="dishIds" item="dishId" open="(" close=")" separator=",">
+            #{dishId}
+        </foreach>
+    </delete>
 
 </mapper>
