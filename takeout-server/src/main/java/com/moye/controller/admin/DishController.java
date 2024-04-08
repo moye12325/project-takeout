@@ -2,6 +2,7 @@ package com.moye.controller.admin;
 
 import com.moye.dto.DishDTO;
 import com.moye.dto.DishPageQueryDTO;
+import com.moye.entity.Dish;
 import com.moye.result.PageResult;
 import com.moye.result.Result;
 import com.moye.service.DishService;
@@ -81,5 +82,17 @@ public class DishController {
         log.info("启用禁用分类：{},{}", status, id);
         dishService.startOrStop(status, id);
         return Result.success();
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @Operation(summary = "根据分类id查询菜品")
+    public Result<List<Dish>> list(Long categoryId){
+        List<Dish> list = dishService.list(categoryId);
+        return Result.success(list);
     }
 }

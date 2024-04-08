@@ -3,6 +3,7 @@ package com.moye.service;
 
 import com.moye.dto.DishDTO;
 import com.moye.dto.DishPageQueryDTO;
+import com.moye.entity.Dish;
 import com.moye.result.PageResult;
 import com.moye.vo.DishVO;
 
@@ -21,4 +22,6 @@ public interface DishService {
     void updateWithFlavor(DishDTO dishDTO);
 
     void startOrStop(Integer status, Long id);
+
+    List<Dish> list(Long categoryId);
 }
