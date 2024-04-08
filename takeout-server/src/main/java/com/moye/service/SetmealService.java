@@ -3,6 +3,7 @@ package com.moye.service;
 import com.moye.dto.SetmealDTO;
 import com.moye.dto.SetmealPageQueryDTO;
 import com.moye.result.PageResult;
+import com.moye.vo.SetmealVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface SetmealService {
      void deleteBatch(List<Long> ids);
 
      void saveWithDish(SetmealDTO setmealDTO);
+
+     void startOrStop(Integer status, Long id);
+
+     SetmealVO getById(Long id);
 }

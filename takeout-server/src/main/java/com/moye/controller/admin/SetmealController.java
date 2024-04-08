@@ -5,6 +5,7 @@ import com.moye.dto.SetmealPageQueryDTO;
 import com.moye.result.PageResult;
 import com.moye.result.Result;
 import com.moye.service.SetmealService;
+import com.moye.vo.SetmealVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,15 @@ public class SetmealController {
 
     @Autowired
     private SetmealService setmealService;
+
+
+    @GetMapping("/{id}")
+    @Operation(summary = "查询套餐")
+    public Result<SetmealVO> getById(@PathVariable Long id) {
+        log.info("查询套餐：{}", id);
+        SetmealVO setmealVO = setmealService.getById(id);
+        return Result.success(setmealVO);
+    }
 
     @PutMapping
     @Operation(summary = "更新套餐")
@@ -53,6 +63,20 @@ public class SetmealController {
         return Result.success();
     }
 
+
+    /**
+     * 起售停售套餐
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("status/{status}")
+    @Operation(summary = "起售停售套餐")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("启用禁用分类：{},{}", status, id);
+        setmealService.startOrStop(status, id);
+        return Result.success();
+    }
 
 
 
