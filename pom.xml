@@ -35,6 +35,7 @@
         <jakarta>6.0.0</jakarta>
         <qiniu>7.15.0</qiniu>
         <redis>3.2.3</redis>
+        <hutool>5.8.26</hutool>
 <!--        <mybatis-plus>3.5.5</mybatis-plus>-->
     </properties>
 
@@ -46,6 +47,12 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>

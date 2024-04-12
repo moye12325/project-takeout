@@ -21,6 +21,11 @@
 
 
         <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.moye</groupId>
             <artifactId>takeout-common</artifactId>
             <version>1.0-SNAPSHOT</version>

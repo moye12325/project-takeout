@@ -37,23 +37,23 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/admin/employee/login");
     }
 
-    /**
-     * 通过knife4j生成接口文档
-     *
-     * @return
-     */
-    @Bean
-    public OpenAPI publicApi(Environment environment) {
-        return new OpenAPI()
-                //.servers(serverList())
-                .info(new Info()
-                        .title("外卖项目接口文档")
-                        //.extensions(Map.of("x-audience", "external-partner", "x-application-id", "APP-12345"))
-                        .description("外卖项目接口文档")
-                        .version("2.0")
-                );
-        //.addSecurityItem(new SecurityRequirement().addList("bearer-jwt", Arrays.asList("read", "write"))).security(securityList());
-    }
+//    /**
+//     * 通过knife4j生成接口文档
+//     *
+//     * @return
+//     */
+//    @Bean
+//    public OpenAPI publicApi(Environment environment) {
+//        return new OpenAPI()
+//                //.servers(serverList())
+//                .info(new Info()
+//                        .title("外卖项目接口文档")
+//                        //.extensions(Map.of("x-audience", "external-partner", "x-application-id", "APP-12345"))
+//                        .description("外卖项目接口文档")
+//                        .version("2.0")
+//                );
+//        //.addSecurityItem(new SecurityRequirement().addList("bearer-jwt", Arrays.asList("read", "write"))).security(securityList());
+//    }
 
     /**
      * 设置静态资源映射
