@@ -1,4 +1,4 @@
-package mapper;
+package com.moye.mapperTest;
 
 import com.moye.TakeoutApplication;
 import com.moye.constant.PasswordConstant;
