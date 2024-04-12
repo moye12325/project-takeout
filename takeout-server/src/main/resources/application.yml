@@ -11,6 +11,11 @@ spring:
     url: jdbc:mysql://${moye.datasource.host}:${moye.datasource.port}/${moye.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: ${moye.datasource.username}
     password: ${moye.datasource.password}
+  data:
+    redis:
+      host: ${moye.redis.host}
+      port: ${moye.redis.port}
+      database: ${moye.redis.database}
 
 mybatis:
   #mapper配置文件

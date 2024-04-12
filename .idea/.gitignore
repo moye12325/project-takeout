@@ -10,3 +10,4 @@
 /copilot/chatSessions
 # IntelliJ
 ../takeout-server/src/main/resources/application-dev.yml
+../.idea
