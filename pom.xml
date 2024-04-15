@@ -36,6 +36,7 @@
         <qiniu>7.15.0</qiniu>
         <redis>3.2.3</redis>
         <hutool>5.8.26</hutool>
+        <httpclient>4.5.14</httpclient>
 <!--        <mybatis-plus>3.5.5</mybatis-plus>-->
     </properties>
 
@@ -47,6 +48,12 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient}</version>
+            </dependency>
 
             <dependency>
                 <groupId>cn.hutool</groupId>
