@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * 分类管理
  */
-@RestController
+@RestController("adminCategoryController")
 @RequestMapping("/admin/category")
 @Slf4j
 @Tag(name = "分类管理", description = "分类相关接口")

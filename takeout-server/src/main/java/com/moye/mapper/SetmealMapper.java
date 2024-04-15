@@ -6,6 +6,7 @@ import com.moye.dto.SetmealPageQueryDTO;
 import com.moye.entity.Setmeal;
 import com.moye.entity.SetmealDish;
 import com.moye.enumeration.OperationType;
+import com.moye.vo.DishItemVO;
 import com.moye.vo.SetmealVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -42,4 +43,8 @@ public interface SetmealMapper {
     void deleteById(Long id);
 
     void deleteByIds(List<Long> ids);
+
+    List<DishItemVO> getDishItemBySetmealId(Long id);
+
+    List<Setmeal> list(Setmeal setmeal);
 }
