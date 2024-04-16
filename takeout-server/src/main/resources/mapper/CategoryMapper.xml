@@ -8,7 +8,7 @@
         values(#{type}, #{name}, #{sort}, #{status}, #{createTime}, #{createUser})
     </insert>
 
-    <update id="update" parameterType="category">
+    <update id="update" parameterType="com.moye.entity.Category">
         update category
         <set>
             <if test="type != null">
