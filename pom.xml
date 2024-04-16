@@ -38,6 +38,7 @@
         <hutool>5.8.26</hutool>
         <httpclient>4.5.14</httpclient>
 <!--        <mybatis-plus>3.5.5</mybatis-plus>-->
+        <cache>3.2.3</cache>
     </properties>
 
     <modules>
@@ -48,6 +49,12 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-cache</artifactId>
+                <version>${cache}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
