@@ -47,10 +47,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         //如果已经存在了，只需要将数量+1
         if (list != null && list.size() > 0) {
             //说明获取到了
-             shoppingCart = list.get(0);
+            shoppingCart = list.get(0);
             shoppingCart.setNumber(shoppingCart.getNumber() + 1);//更新语句，更新number
             shoppingCartMapper.updateNumberById(shoppingCart);
-        }else {
+        } else {
             //不存在则需要插入一条购物车数据
             Long dishId = shoppingCartDTO.getDishId();
             if (dishId != null) {
@@ -62,7 +62,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 //                shoppingCart.setNumber(1);
 //                shoppingCart.setCreateTime(LocalDateTime.now());
-            }else {
+            } else {
                 Long setmealId = shoppingCartDTO.getSetmealId();
                 //添加进来的是套餐
                 Setmeal setmeal = setmealMapper.getById(setmealId);
@@ -98,5 +98,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Long currentId = BaseContext.getCurrentId();
         shoppingCartMapper.deleteByUserId(currentId);
 
+    }
+
+    @Override
+    public void subShoppingCart(ShoppingCartDTO shoppingCartDTO) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
+        Long userId = BaseContext.getCurrentId();
+        //设置查询条件，查询当前登录用户的购物车数据
+        shoppingCart.setUserId(userId);
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        if (list != null && list.size() > 0) {
+            shoppingCart = list.get(0);
+            Integer number = shoppingCart.getNumber();
+            if (number == 1) {
+                shoppingCartMapper.deleteById(shoppingCart.getUserId());
+            }else {
+                //份数不为1，按分数修改
+                shoppingCart.setNumber(shoppingCart.getNumber() - 1);
+                shoppingCartMapper.updateNumberById(shoppingCart);
+            }
+        }
     }
 }

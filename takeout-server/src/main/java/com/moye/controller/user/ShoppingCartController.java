@@ -48,12 +48,21 @@ public class ShoppingCartController {
 
     /**
      * 情况购物车
+     *
      * @return
      */
     @DeleteMapping("/clean")
     @Operation(summary = "清空购物车")
-    public Result<String> clean(){
+    public Result<String> clean() {
         shoppingCartService.cleanShopppingCart();
+        return Result.success();
+    }
+
+    @PostMapping("/sub")
+    @Operation(summary = "删除购物车中的一个菜品")
+    public Result sub(@RequestBody ShoppingCartDTO shoppingCartDTO) {
+        log.info("删除购物车中的一个商品{}", shoppingCartDTO);
+        shoppingCartService.subShoppingCart(shoppingCartDTO);
         return Result.success();
     }
 
