@@ -4,6 +4,11 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moye.mapper.AddressBookMapper">
 
+    <insert id="insert" parameterType="com.moye.entity.AddressBook">
+        insert into address_book (user_id, consignee, phone, sex, province_code, province_name, city_code, city_name, district_code, district_name, detail, label, is_default)
+        values (#{userId}, #{consignee}, #{phone}, #{sex}, #{provinceCode}, #{provinceName}, #{cityCode}, #{cityName}, #{districtCode}, #{districtName}, #{detail}, #{label}, #{isDefault})
+    </insert>
+
     <select id="list" resultType="com.moye.entity.AddressBook" parameterType="com.moye.entity.AddressBook">
         select * from address_book
         <where>

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AddressBookService {
     List<AddressBook> list(AddressBook addressBook);
+
+    void save(AddressBook addressBook);
 }

@@ -8,9 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -35,6 +34,20 @@ public class AddressBookController {
         List<AddressBook> list = addressBookService.list(addressBook);
         return Result.success(list);
     }
+
+    /**
+     * 新增地址
+     * @param addressBook
+     * @return
+     */
+    @PostMapping()
+    @Operation(summary = "新增地址")
+    public Result save(@RequestBody AddressBook addressBook) {
+        addressBookService.save(addressBook);
+        return Result.success();
+    }
+
+
 
 
 }
