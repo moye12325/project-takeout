@@ -5,9 +5,36 @@
 <mapper namespace="com.moye.mapper.AddressBookMapper">
 
     <insert id="insert" parameterType="com.moye.entity.AddressBook">
-        insert into address_book (user_id, consignee, phone, sex, province_code, province_name, city_code, city_name, district_code, district_name, detail, label, is_default)
-        values (#{userId}, #{consignee}, #{phone}, #{sex}, #{provinceCode}, #{provinceName}, #{cityCode}, #{cityName}, #{districtCode}, #{districtName}, #{detail}, #{label}, #{isDefault})
+        insert into address_book (user_id, consignee, phone, sex, province_code, province_name, city_code, city_name,
+        district_code, district_name, detail, label, is_default)
+        values (#{userId}, #{consignee}, #{phone}, #{sex}, #{provinceCode}, #{provinceName}, #{cityCode}, #{cityName},
+        #{districtCode}, #{districtName}, #{detail}, #{label}, #{isDefault})
     </insert>
+
+    <update id="update" parameterType="com.moye.entity.AddressBook">
+        update address_book
+        <set>
+            <if test="consignee != null">
+                consignee = #{consignee},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="detail != null">
+                detail = #{detail},
+            </if>
+            <if test="label != null">
+                label = #{label},
+            </if>
+            <if test="isDefault != null">
+                is_default = #{isDefault},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
     <select id="list" resultType="com.moye.entity.AddressBook" parameterType="com.moye.entity.AddressBook">
         select * from address_book
@@ -22,5 +49,8 @@
                 and is_default = #{isDefault}
             </if>
         </where>
+    </select>
+    <select id="getById" resultType="com.moye.entity.AddressBook" parameterType="java.lang.Long">
+        select * from address_book where id = #{id}
     </select>
 </mapper>
