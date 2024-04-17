@@ -1,5 +1,7 @@
 package com.moye.mapper;
 
+import com.github.pagehelper.Page;
+import com.moye.dto.OrdersPageQueryDTO;
 import com.moye.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -16,4 +18,6 @@ public interface OrderMapper {
     Orders getByNumber(String outTradeNo);
 
     void update(Orders orders);
+
+    Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
 }

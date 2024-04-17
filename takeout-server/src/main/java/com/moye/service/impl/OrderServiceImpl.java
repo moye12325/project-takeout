@@ -1,8 +1,11 @@
 package com.moye.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.moye.constant.MessageConstant;
 import com.moye.context.BaseContext;
+import com.moye.dto.OrdersPageQueryDTO;
 import com.moye.dto.OrdersPaymentDTO;
 import com.moye.dto.OrdersSubmitDTO;
 import com.moye.entity.*;
@@ -10,10 +13,13 @@ import com.moye.exception.AddressBookBusinessException;
 import com.moye.exception.OrderBusinessException;
 import com.moye.exception.ShoppingCartBusinessException;
 import com.moye.mapper.*;
+import com.moye.result.PageResult;
 import com.moye.service.OrderService;
 import com.moye.utils.WeChatPayUtil;
 import com.moye.vo.OrderPaymentVO;
 import com.moye.vo.OrderSubmitVO;
+import com.moye.vo.OrderVO;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -116,12 +122,15 @@ public class OrderServiceImpl implements OrderService {
         User user = userMapper.getByOpenid(userId.toString());
 
         //调用微信支付接口，生成预支付交易单
-        JSONObject jsonObject = weChatPayUtil.pay(
-                ordersPaymentDTO.getOrderNumber(), //商户订单号
-                new BigDecimal(0.01), //支付金额，单位 元
-                "苍穹外卖订单", //商品描述
-                user.getOpenid() //微信用户的openid
-        );
+//        JSONObject jsonObject = weChatPayUtil.pay(
+//                ordersPaymentDTO.getOrderNumber(), //商户订单号
+//                new BigDecimal(0.01), //支付金额，单位 元
+//                "莫叶饿了订单", //商品描述
+//                user.getOpenid() //微信用户的openid
+//        );
+
+        //生成空json，跳过支付
+        JSONObject jsonObject = new JSONObject();
 
         if (jsonObject.getString("code") != null && jsonObject.getString("code").equals("ORDERPAID")) {
             throw new OrderBusinessException("该订单已支付");
@@ -153,4 +162,35 @@ public class OrderServiceImpl implements OrderService {
 
         orderMapper.update(orders);
     }
+
+    @Override
+    public PageResult pageQuery4User(int pageNum, int pageSize, Integer status) {
+        PageHelper.startPage(pageNum, pageSize);
+        OrdersPageQueryDTO ordersPageQueryDTO = new OrdersPageQueryDTO();
+        ordersPageQueryDTO.setUserId(BaseContext.getCurrentId());
+        ordersPageQueryDTO.setStatus(status);
+
+        //分页查询条件
+        Page<Orders> page = orderMapper.pageQuery(ordersPageQueryDTO);
+        List<OrderVO>  list = new ArrayList();
+
+        //查询出订单明细，并封装OrderVO进行相应
+        if (page != null && page.getTotal() > 0) {
+            for (Orders orders:page){
+                Long id = orders.getId();
+
+                //查询订单明细
+                List<OrderDetail> orderDetails = orderDetailMapper.getByOrderId(id);
+
+                OrderVO orderVO = new OrderVO();
+                BeanUtils.copyProperties(orders, orderVO);
+                orderVO.setOrderDetailList(orderDetails);
+
+                list.add(orderVO);
+            }
+        }
+        return new PageResult(page.getTotal(), list);
+    }
+
+
 }

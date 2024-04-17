@@ -1,8 +1,11 @@
 package com.moye.controller.user;
 
 
+import com.github.pagehelper.PageHelper;
+import com.moye.dto.OrdersDTO;
 import com.moye.dto.OrdersPaymentDTO;
 import com.moye.dto.OrdersSubmitDTO;
+import com.moye.result.PageResult;
 import com.moye.result.Result;
 
 import com.moye.service.OrderService;
@@ -50,6 +53,23 @@ public class OrderController {
         log.info("订单支付：{}", ordersPaymentDTO);
         OrderPaymentVO orderPaymentVO = orderService.payment(ordersPaymentDTO);
         log.info("生成预支付交易单：{}", orderPaymentVO);
+        //模拟交易成功
+        orderService.paySuccess(ordersPaymentDTO.getOrderNumber());
         return Result.success(orderPaymentVO);
+    }
+
+    /**
+     * 查询历史订单
+     * @param page
+     * @param pageSize
+     * @param status
+     * @return
+     */
+    @GetMapping("/historyOrders")
+    @Operation(summary = "历史订单查询")
+    public Result<PageResult> page(int page, int pageSize, Integer status) {
+        log.info("查询历史订单");
+        PageResult pageResult = orderService.pageQuery4User(page,pageSize,status);
+        return Result.success(pageResult);
     }
 }
