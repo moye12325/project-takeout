@@ -5,6 +5,7 @@ import com.moye.dto.OrdersSubmitDTO;
 import com.moye.result.PageResult;
 import com.moye.vo.OrderPaymentVO;
 import com.moye.vo.OrderSubmitVO;
+import com.moye.vo.OrderVO;
 
 public interface OrderService {
     OrderSubmitVO submitOrder(OrdersSubmitDTO ordersSubmitDTO);
@@ -14,4 +15,10 @@ public interface OrderService {
     void paySuccess(String outTradeNo);
 
     PageResult pageQuery4User(int page, int pageSize, Integer status);
+
+    OrderVO details(Long id);
+
+    void userCancelById(Long id) throws Exception;
+
+    void repetition(Long id);
 }
