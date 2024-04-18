@@ -1,5 +1,6 @@
 package com.moye.controller.admin;
 
+import com.moye.dto.OrdersCancelDTO;
 import com.moye.dto.OrdersConfirmDTO;
 import com.moye.dto.OrdersPageQueryDTO;
 import com.moye.dto.OrdersRejectionDTO;
@@ -76,6 +77,18 @@ public class OrderController {
     @Operation(summary = "拒单")
     public Result rejection(@RequestBody OrdersRejectionDTO ordersRejectionDTO) throws Exception {
         orderService.rejection(ordersRejectionDTO);
+        return Result.success();
+    }
+
+    /**
+     * 取消订单
+     *
+     * @return
+     */
+    @PutMapping("/cancel")
+    @Operation(summary = "取消订单")
+    public Result cancel(@RequestBody OrdersCancelDTO ordersCancelDTO) throws Exception {
+        orderService.cancel(ordersCancelDTO);
         return Result.success();
     }
 }
