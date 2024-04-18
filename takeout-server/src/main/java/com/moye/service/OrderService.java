@@ -1,9 +1,6 @@
 package com.moye.service;
 
-import com.moye.dto.OrdersConfirmDTO;
-import com.moye.dto.OrdersPageQueryDTO;
-import com.moye.dto.OrdersPaymentDTO;
-import com.moye.dto.OrdersSubmitDTO;
+import com.moye.dto.*;
 import com.moye.result.PageResult;
 import com.moye.vo.OrderPaymentVO;
 import com.moye.vo.OrderStatisticsVO;
@@ -30,4 +27,6 @@ public interface OrderService {
     OrderStatisticsVO statistics();
 
     void confirm(OrdersConfirmDTO ordersConfirmDTO);
+
+    void rejection(OrdersRejectionDTO ordersRejectionDTO);
 }

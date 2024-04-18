@@ -2,6 +2,7 @@ package com.moye.controller.admin;
 
 import com.moye.dto.OrdersConfirmDTO;
 import com.moye.dto.OrdersPageQueryDTO;
+import com.moye.dto.OrdersRejectionDTO;
 import com.moye.result.PageResult;
 import com.moye.result.Result;
 import com.moye.service.OrderService;
@@ -63,6 +64,18 @@ public class OrderController {
     @Operation(summary = "接单")
     public Result confirm(@RequestBody OrdersConfirmDTO ordersConfirmDTO) {
         orderService.confirm(ordersConfirmDTO);
+        return Result.success();
+    }
+
+    /**
+     * 拒单
+     *
+     * @return
+     */
+    @PutMapping("/rejection")
+    @Operation(summary = "拒单")
+    public Result rejection(@RequestBody OrdersRejectionDTO ordersRejectionDTO) throws Exception {
+        orderService.rejection(ordersRejectionDTO);
         return Result.success();
     }
 }
