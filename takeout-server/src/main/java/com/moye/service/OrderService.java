@@ -1,5 +1,6 @@
 package com.moye.service;
 
+import com.moye.dto.OrdersPageQueryDTO;
 import com.moye.dto.OrdersPaymentDTO;
 import com.moye.dto.OrdersSubmitDTO;
 import com.moye.result.PageResult;
@@ -21,4 +22,6 @@ public interface OrderService {
     void userCancelById(Long id) throws Exception;
 
     void repetition(Long id);
+
+    PageResult conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
 }
