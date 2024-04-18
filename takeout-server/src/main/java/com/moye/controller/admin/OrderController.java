@@ -4,6 +4,7 @@ import com.moye.dto.OrdersPageQueryDTO;
 import com.moye.result.PageResult;
 import com.moye.result.Result;
 import com.moye.service.OrderService;
+import com.moye.vo.OrderStatisticsVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,12 @@ public class OrderController {
         return Result.success(pageResult);
     }
 
+    @GetMapping("/statistics")
+    @Operation(summary = "各个状态的订单数量统计")
+    public Result<OrderStatisticsVO> statistics() {
+        OrderStatisticsVO orderStatisticsVO = orderService.statistics();
+        return Result.success(orderStatisticsVO);
+    }
 
 
 }

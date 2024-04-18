@@ -5,6 +5,7 @@ import com.moye.dto.OrdersPaymentDTO;
 import com.moye.dto.OrdersSubmitDTO;
 import com.moye.result.PageResult;
 import com.moye.vo.OrderPaymentVO;
+import com.moye.vo.OrderStatisticsVO;
 import com.moye.vo.OrderSubmitVO;
 import com.moye.vo.OrderVO;
 
@@ -24,4 +25,6 @@ public interface OrderService {
     void repetition(Long id);
 
     PageResult conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    OrderStatisticsVO statistics();
 }

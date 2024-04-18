@@ -17,6 +17,7 @@ import com.moye.result.PageResult;
 import com.moye.service.OrderService;
 import com.moye.utils.WeChatPayUtil;
 import com.moye.vo.OrderPaymentVO;
+import com.moye.vo.OrderStatisticsVO;
 import com.moye.vo.OrderSubmitVO;
 import com.moye.vo.OrderVO;
 import org.aspectj.weaver.ast.Or;
@@ -274,6 +275,21 @@ public class OrderServiceImpl implements OrderService {
         //部分订单状态
         List<OrderVO> orderVOList = getOrderVOList(page);
         return new PageResult(page.getTotal(), orderVOList);
+    }
+
+    @Override
+    public OrderStatisticsVO statistics() {
+        // 根据状态，分别查询出待接单、待派送、派送中的订单数量
+        Integer toBeConfirmed = orderMapper.countStatus(Orders.TO_BE_CONFIRMED);
+        Integer confirmed = orderMapper.countStatus(Orders.CONFIRMED);
+        Integer deliveryInProgress = orderMapper.countStatus(Orders.DELIVERY_IN_PROGRESS);
+
+        // 将查询出的数据封装到orderStatisticsVO中响应
+        OrderStatisticsVO orderStatisticsVO = new OrderStatisticsVO();
+        orderStatisticsVO.setToBeConfirmed(toBeConfirmed);
+        orderStatisticsVO.setConfirmed(confirmed);
+        orderStatisticsVO.setDeliveryInProgress(deliveryInProgress);
+        return orderStatisticsVO;
     }
 
     private List<OrderVO> getOrderVOList(Page<Orders> page) {
